@@ -1,12 +1,11 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
-import Shipments from "@/pages/shipments/index.vue"
-import About from "@/pages/about/index.vue"
+import ShipmentsList from "@/pages/ShipmentsList.vue"
 
 const routes = [
-  { path: '/', redirect: '/shipments' },
-  { path: '/shipments', component: Shipments, },
-  { path: '/about', component: About, },
+    { path: '/', redirect: '/shipments' },
+    { path: '/shipments', name:'shipments', component: ShipmentsList, },
+    { path: '/shipments/:id', name: 'shipment.detail', component: () => import("@/pages/ShipmentDetails.vue"), }
 ]
 
 export const router = createRouter({
