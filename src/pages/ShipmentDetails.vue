@@ -26,5 +26,12 @@ const formatDate = (date: string) => {
     >Назад</router-link>
     </h3>
     <ShipmentsDetailsTable :items="shipment.items" />
+    <div v-if="shipment.status === 'new'">
+      <br>
+      <router-link
+        data-testid="start-recount-btn"
+        :to="{ name: 'recount.detail' }"
+      >Отправить на пересчёт</router-link>
+    </div>
   </div>
 </template>
