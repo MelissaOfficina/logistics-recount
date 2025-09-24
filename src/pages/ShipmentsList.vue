@@ -12,5 +12,10 @@
 </script>
 <template>
   <h2>Список поставок</h2>
-  <ShipmentsTable :shipments="shipments" />
+  <div v-if="shipments.length > 0">
+    <ShipmentsTable :shipments="shipments" />
+  </div>
+  <div v-else>
+    <p>Поставок нет</p>
+  </div>
 </template>
