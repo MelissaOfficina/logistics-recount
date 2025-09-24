@@ -1,0 +1,5 @@
+1. Открыла страницу `/shipments`, вижу список из 3 поставок, у таблицы атрибут data-testid="shipments-table"
+2. Кликаю по ссылке Открыть в строке поставки с id=1 и статусом new, у строки tr атрибут data-testid="shipments-row-1", у кнопки атрибут data-testid="open-shipment-1"
+3. Открылась страница `/shipments/1`, на странице заголовок - добавила data-testid="shipment-header", таблица товаров с атрибутом data-testid="shipment-items-table", кнопка назад и кнопка "отправить на пересчет" - data-testid="start-recount-btn"
+4. Кликаю по кнопке "отправить на пересчет"
+5. Открылась страница `/recount/1` с заглушкой data-testid="recount-screen-placeholder"

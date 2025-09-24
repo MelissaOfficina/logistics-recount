@@ -1,13 +1,6 @@
 <script setup lang="ts">
+import {formatDate} from "@/utils/formatDate";
 defineProps(["shipments"]);
-
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("ru-RU", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
 </script>
 
 <template>
