@@ -12,7 +12,7 @@ defineProps(['items']);
     </tr>
     </thead>
     <tbody>
-    <tr v-for="item in items" :key="item.id" :data-testid="item.id">
+    <tr v-for="item in items" :key="item.id">
       <td>{{item.id}}</td>
       <td>{{item.name}}</td>
       <td>{{item.quantity}}</td>
