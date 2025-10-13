@@ -12,7 +12,7 @@ describe('recount scan', () => {
                   cy.get('[data-testid="shipment-header"]').should("be.visible");
                   cy.get('[data-testid="start-recount-btn"]')
                       .should("be.visible")
-                      .click();
+                  cy.get('[data-testid="start-recount-btn"]').click();
                   cy.get('[data-testid="bin-good"]').should("be.visible");
                   cy.get('[data-testid="bin-reject"]').should("be.visible");
                   cy.get('[data-testid="bin-unknown"]').should("be.visible");
