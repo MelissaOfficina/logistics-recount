@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "vendor": "Рога и копыта",
+    "date": "2025-09-07",
+    "status": "new",
+    "items": [
+      {
+        "id": 1,
+        "name": "Обложка для паспорта",
+        "quantity": 1
+      },
+      {
+        "id": 5,
+        "name": "Совок пластиковый",
+        "quantity": 1
+      },
+      {
+        "id": 13,
+        "name": "Губная помада",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "vendor": "Inform Industry",
+    "date": "2025-09-10",
+    "status": "pending",
+    "items": [
+      {
+        "id": 10,
+        "name": "Шины Daewoo, комплект 4 шт",
+        "quantity": 1
+      },
+      {
+        "id": 54,
+        "name": "Трусы мужские",
+        "quantity": 5
+      },
+      {
+        "id": 12,
+        "name": "Игрушка для кошек удочка",
+        "quantity": 1
+      },
+      {
+        "id": 134,
+        "name": "Носки с пальцами",
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "vendor": "ИП Анна Давыдова",
+    "date": "2025-09-15",
+    "status": "shipped",
+    "items": [
+      {
+        "id": 134,
+        "name": "Носки с пальцами",
+        "quantity": 120
+      }
+    ]
+  }
+]
