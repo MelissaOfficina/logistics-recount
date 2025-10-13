@@ -7,7 +7,7 @@ import BinPanel from "@/components/recount/BinPanel.vue";
 import ScannerPanel from "@/components/recount/ScannerPanel.vue";
 import SummaryPanel from "@/components/recount/SummaryPanel.vue";
 import FinishModal from "@/components/recount/FinishModal.vue";
-import Container from "@/components/toast/Container.vue";
+import ToastContainer from "@/components/toast/Container.vue";
 import { useToast } from "vue-toastification";
 
 const route = useRoute();
@@ -33,7 +33,7 @@ const toggleModal = (show: boolean) => {
 const finishAll = () => {
   finish.value = true;
   toast({
-    component: Container,
+    component: ToastContainer,
     props: {
       message: 'Размещение завершено',
       testId: 'placement-finished-toast'
