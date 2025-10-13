@@ -23,15 +23,15 @@ const changeQuantity = (bin:string,sku:string,qty:string,plus:boolean) => {
       :class="{ active: storeRecount.activeBinId === item.id }"
          v-for="item in storeRecount.bins"
          :key="item.id"
-         :data-testid="`bins-item-${item.id}`"
+         :data-testid="`${item.id}`"
     >
-      <h4>{{item.title}}: <span class="">{{item.totalQty}}</span></h4>
+      <h4>{{item.title}}: <span :data-testid="`${item.id}-total`">{{item.totalQty}}</span></h4>
       <div v-for="(qty, sku) in item.items" :key="sku">
         <p>{{sku}}: {{qty}}</p>
         <button @click="changeQuantity(item.id,sku,qty,false)">-</button>&nbsp;<button @click="changeQuantity(item.id,sku,qty,true)">+</button>
       </div>
       <hr />
-      <button @click="storeRecount.setActiveBin(item.id)">Выбрать</button>
+      <button @click="storeRecount.setActiveBin(item.id)" class="choose">Выбрать</button>
     </div>
   </div>
 </template>
