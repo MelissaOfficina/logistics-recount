@@ -7,7 +7,7 @@ import BinPanel from "@/components/recount/BinPanel.vue";
 import ScannerPanel from "@/components/recount/ScannerPanel.vue";
 import SummaryPanel from "@/components/recount/SummaryPanel.vue";
 import FinishModal from "@/components/recount/FinishModal.vue";
-import ToastContainer from "@/components/toast/Container.vue";
+import ToastOntainer from "@/components/toast/Сontainer.vue";
 import { useToast } from "vue-toastification";
 
 const route = useRoute();
@@ -15,7 +15,7 @@ const storeShipment = shipmentStore()
 const storeRecount = recountStore()
 const router = useRouter()
 
-const id = route.params.id;
+const id = String(route.params.id);
 if(id){
   storeShipment.loadShipment(id)
   storeRecount.init(id)
@@ -32,7 +32,7 @@ const toggleModal = (show: boolean) => {
 const finishAll = () => {
   finish.value = true;
   toast({
-    component: ToastContainer,
+    component: ToastOntainer,
     props: {
       message: 'Размещение завершено',
       testId: 'placement-finished-toast'

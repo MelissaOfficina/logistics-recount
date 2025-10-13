@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { ref } from "vue";
   import { useRouter } from 'vue-router'
-  import { getShipments } from "@/services/shipments.mock.ts";
-  import type { Shipment } from "@/types/shipment.ts";
+  import { getShipments } from "@/services/shipments.mock";
+  import type { Shipment } from "@/types/shipment";
   import ShipmentsTable from "@/components/tables/ShipmentsTable.vue";
 
   const router = useRouter()

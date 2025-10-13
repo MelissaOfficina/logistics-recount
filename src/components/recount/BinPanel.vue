@@ -4,7 +4,7 @@ defineProps(['bins']);
 
 const storeRecount = recountStore()
 
-const changeQuantity = (bin:string,sku:string,qty:string,plus:boolean) => {
+const changeQuantity = (bin:"good" | "reject" | "unknown",sku:string,qty:number,plus:boolean) => {
   let newQty = Number(qty)
 
   if (plus) {

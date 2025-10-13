@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
-import {Shipment} from "@/types/shipment";
-import {getShipments} from "@/services/shipments.mock.ts";
+import type {Shipment} from "@/types/shipment";
+import {getShipments} from "@/services/shipments.mock";
 
 export const shipmentStore = defineStore('shipment', {
   state: () => {

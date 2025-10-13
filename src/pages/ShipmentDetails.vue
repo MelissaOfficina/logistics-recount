@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getShipments } from "@/services/shipments.mock.ts";
+import { getShipments } from "@/services/shipments.mock";
 import { useRoute } from 'vue-router'
 import { computed } from "vue";
 import ShipmentsDetailsTable from "@/components/tables/ShipmentsDetailsTable.vue";

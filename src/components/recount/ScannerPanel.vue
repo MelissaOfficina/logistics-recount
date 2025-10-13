@@ -20,6 +20,9 @@ const scannerLocalStore = reactive({
 });
 
 const addToActiveBin = () => {
+  if(!storeRecount.activeBinId){
+    return;
+  }
   storeRecount.scanSku(scannerLocalStore.sku, scannerLocalStore.qty, storeRecount.activeBinId);
   scannerLocalStore.init()
 }
@@ -32,7 +35,7 @@ const addToActiveBin = () => {
         type="text"
         :name="`sku`"
         id="sku"
-        @keyup="scannerLocalStore.setSku($event.target.value)"
+        @keyup="scannerLocalStore.setSku(($event.target as HTMLInputElement).value)"
         placeholder="Введите SKU/штрихкод"
         :value="scannerLocalStore.sku"
       >
@@ -43,14 +46,14 @@ const addToActiveBin = () => {
         min="1"
         :name="`qty`"
         id="qty"
-        @change="scannerLocalStore.setQty($event.target.value)"
-        @keyup="scannerLocalStore.setQty($event.target.value)"
+        @change="scannerLocalStore.setQty(($event.target as HTMLInputElement)?.value)"
+        @keyup="scannerLocalStore.setQty(($event.target as HTMLInputElement)?.value)"
         placeholder="Введите количество"
         :value="scannerLocalStore.qty"
       ></label>
     <br /><br />
     <div class="block">
-      <button @click="addToActiveBin()" :disabled="!scannerLocalStore.sku?.length > 0" class="scan">Сканировать</button>
+      <button @click="addToActiveBin()" :disabled="!scannerLocalStore.sku?.length" class="scan">Сканировать</button>
     </div>
   </div>
 </template>
