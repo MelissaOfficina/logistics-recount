@@ -15,7 +15,6 @@ const storeShipment = shipmentStore()
 const storeRecount = recountStore()
 const router = useRouter()
 
-
 const id = route.params.id;
 if(id){
   storeShipment.loadShipment(id)
