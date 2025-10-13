@@ -20,7 +20,6 @@ const id = route.params.id;
 if(id){
   storeShipment.loadShipment(id)
   storeRecount.init(id)
-
 }
 
 const isModalOpen = ref(false)
