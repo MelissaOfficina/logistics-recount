@@ -2,10 +2,16 @@ import { defineStore } from "pinia";
 import { RecountState } from "@/types/recount";
 import { getShipments } from "@/services/shipments.mock";
 
+const initialBins = [
+  { id: 'bin-good', title: 'Годный',   items: {}, totalQty: 0 },
+  { id: 'bin-reject', title: 'Брак',     items: {}, totalQty: 0 },
+  { id: 'bin-unknown', title: 'Излишек',  items: {}, totalQty: 0 }
+]
+
 export const recountStore  = defineStore('recount', {
   state: (): RecountState => ({
     shipmentId: '',
-    bins: [],
+    bins: initialBins,
     expected: {},
     scannedTotalBySku: {},
     status: 'idle',
@@ -26,12 +32,7 @@ export const recountStore  = defineStore('recount', {
           {}
         ) || {}
 
-      // создаём 3 пустые коробки
-      this.bins = this.bins?.length ? this.bins : [
-        { id: '1', title: 'Годный',   items: {}, totalQty: 0 },
-        { id: '2', title: 'Брак',     items: {}, totalQty: 0 },
-        { id: '3', title: 'Излишек',  items: {}, totalQty: 0 }
-      ]
+      this.bins = this.bins?.length ? this.bins : initialBins
     },
     setActiveBin(id: string) {
       this.activeBinId = id
@@ -66,13 +67,11 @@ export const recountStore  = defineStore('recount', {
     }
   },
   getters: {
-    diffBySku(sku,state) {
+    diffBySku() {
     },
     isAllMatched(state: RecountState) {
       const expected = state.expected
       const scanned = state.scannedTotalBySku
-
-      console.log(expected,scanned)
 
       const keys1 = Object.keys(expected)
       const keys2 = Object.keys(scanned)
@@ -81,7 +80,7 @@ export const recountStore  = defineStore('recount', {
 
       return keys1.every(key => expected[key] === scanned[key])
     },
-    hasOverageOrUnknown(state: RecountState) {
+    hasOverageOrUnknown() {
 
     }
   }

@@ -31,6 +31,7 @@ const addToActiveBin = () => {
       <input
         type="text"
         :name="`sku`"
+        id="sku"
         @keyup="scannerLocalStore.setSku($event.target.value)"
         placeholder="Введите SKU/штрихкод"
         :value="scannerLocalStore.sku"
@@ -41,6 +42,7 @@ const addToActiveBin = () => {
         type="number"
         min="1"
         :name="`qty`"
+        id="qty"
         @change="scannerLocalStore.setQty($event.target.value)"
         @keyup="scannerLocalStore.setQty($event.target.value)"
         placeholder="Введите количество"
@@ -48,7 +50,7 @@ const addToActiveBin = () => {
       ></label>
     <br /><br />
     <div class="block">
-      <button @click="addToActiveBin()" :disabled="!scannerLocalStore.sku?.length > 0">Сканировать</button>
+      <button @click="addToActiveBin()" :disabled="!scannerLocalStore.sku?.length > 0" class="scan">Сканировать</button>
     </div>
   </div>
 </template>

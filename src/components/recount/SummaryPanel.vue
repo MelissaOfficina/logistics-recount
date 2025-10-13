@@ -11,5 +11,5 @@ const storeRecount = recountStore()
       <p>sku {{item.id}} - <span :style="`color: ${storeRecount.scannedTotalBySku[item.id] === item.quantity ? 'green' : 'red'}`">ожидается {{item.quantity}}</span></p>
     </div>
   </div>
-  <button :disabled="!storeRecount.isAllMatched">Завершить пересчёт</button>
+
 </template>
