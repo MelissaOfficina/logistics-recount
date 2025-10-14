@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .js,.ts,.vue",
     "cypress:open": "cypress open",
-    "test:e2e": "start-server-and-test dev http://localhost:5173 cypress:open"
+    "test:e2e": "start-server-and-test dev http://localhost:4173 cypress:open"
   },
   "dependencies": {
     "pinia": "^3.0.3",
