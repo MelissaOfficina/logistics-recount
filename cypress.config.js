@@ -7,6 +7,7 @@ export default defineConfig({
       on('file:preprocessor', vitePreprocessor())
       // implement node event listeners here
     },
+    supportFile: false,
     baseUrl: 'http://localhost:5173',
   },
 });
