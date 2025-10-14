@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 4173",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview",
+    "preview": "vite --port 4173 preview",
     "lint": "eslint . --ext .js,.ts,.vue",
     "cypress:open": "cypress open",
     "test:e2e": "start-server-and-test dev http://localhost:4173 cypress:open"
