@@ -10,6 +10,12 @@ export const shipmentStore = defineStore('shipment', {
       loadShipment(id: string) {
           const shipments = getShipments();
           this.shipment = shipments.find(s => s.id === Number(id)) || null
+        return this.shipment;
       },
+    changeStatus(status: string) {
+        if(this.shipment) {
+          this.shipment.status = status
+        }
+    }
   },
 })

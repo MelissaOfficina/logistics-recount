@@ -13,7 +13,7 @@ const initialBins: Bins = {
 export const recountStore  = defineStore('recount', {
   state: (): RecountState => ({
     shipmentId: '',
-    bins: initialBins,
+    bins: {...initialBins},
     expected: {},
     scannedTotalBySku: {},
     status: 'idle',
@@ -33,9 +33,6 @@ export const recountStore  = defineStore('recount', {
           },
           {}
         ) || {}
-
-
-      this.bins = this.bins ? this.bins : initialBins
     },
     setActiveBin(id: BinId) {
       this.activeBinId = id
@@ -47,6 +44,7 @@ export const recountStore  = defineStore('recount', {
       this.bins[bin].items[sku] = qty
       this.bins[bin].totalQty = this.bins[bin].totalQty + qty
 
+      this.recalculateBinTotal(bin)
       this.changeScannedTotalBySku(sku,qty)
     },
     changeBinQty(bin: BinId, sku:string, qty: number) {
@@ -59,14 +57,27 @@ export const recountStore  = defineStore('recount', {
         items[sku] = qty
       }
 
+      this.recalculateBinTotal(bin)
       this.changeScannedTotalBySku(sku,qty)
     },
     changeScannedTotalBySku(sku : string,qty : number) {
-      if(sku === '0'){
+      if(qty === 0){
         delete this.scannedTotalBySku[sku]
       }else{
         this.scannedTotalBySku[sku] = qty
       }
+    },
+    recalculateBinTotal(bin: BinId) {
+      const binData = this.bins[bin]
+      if (!binData) return
+
+      const items = binData.items || {}
+      binData.totalQty = Object.values(items).reduce((sum, q) => sum + q, 0)
+    },
+    resetAfterRecount() {
+      this.status = 'idle';
+      this.$reset();
+      Object.keys(localStorage).forEach(k => { if (k.includes('recount')) localStorage.removeItem(k) });
     }
   },
   getters: {

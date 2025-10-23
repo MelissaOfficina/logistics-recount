@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "composite": true,
+    "composite": false,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 
     /* Linting */
@@ -15,13 +15,12 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "noEmit": false,
+    "noEmit": true,
     "allowImportingTsExtensions": false,
     "outDir": "./dist",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "declaration": true,
-    "declarationDir": "./dist/types"
+    "declaration": false,
   },
   "include": ["src/**/*","src/**/*.json"],
   "exclude": [

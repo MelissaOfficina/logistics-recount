@@ -1,36 +1,21 @@
 <script setup lang="ts">
-defineProps(['isOpen']);
-const emit = defineEmits(['close-modal','finish-all'])
+import AppModal from "@/components/ui/AppModal.vue";
+import AppButton from "@/components/ui/AppButton.vue";
 
-const closeModal = () => {
-  emit('close-modal');
+defineProps({ isOpen: Boolean });
+const emit = defineEmits(['close-modal', 'finish-all']);
+
+const close = () => {
   emit('finish-all');
-}
+  emit('close-modal');
+};
 </script>
 
 <template>
-  <div v-if="isOpen" class="modal-backdrop" data-testid="finish-modal" @click.self="closeModal">
-    <div class="modal-content">
-      <p>Пересчет завершен</p>
-      <button @click="closeModal" data-testid="confirm-placement-btn">Подтвердить размещение</button>
-    </div>
-  </div>
+  <AppModal :isOpen="isOpen" @close="emit('close-modal')">
+    <p>Пересчет завершен</p>
+    <AppButton @click="close" e2e="confirm-placement-btn">Подтвердить размещение</AppButton>
+  </AppModal>
 </template>
 
-<style scoped>
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.modal-content {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  min-width: 300px;
-  color:black
-}
-</style>
+
