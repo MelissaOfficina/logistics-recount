@@ -16,7 +16,7 @@ interface ScannerLocalStore {
 
 const scannerLocalStore = reactive<ScannerLocalStore>({
   sku: '',
-  qty: 0,
+  qty: 1,
   init(){
     this.sku = ''
     this.qty = 1
@@ -52,7 +52,6 @@ const addToActiveBin = () => {
     </label>&nbsp;&nbsp;
     <label :for="`qty`">
       <AppInput :type="'number'"
-                :min="1"
                 :name="`qty`"
                 :id="'qty'"
                 @change="(e) => scannerLocalStore.setQty(Number((e.target as HTMLInputElement)?.value) || 1)"

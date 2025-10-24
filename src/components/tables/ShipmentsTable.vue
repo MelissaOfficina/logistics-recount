@@ -27,7 +27,7 @@ defineProps(["shipments"]);
         <td>{{ status }}</td>
         <td>
           <router-link :to="{ name: 'shipment.detail', params: { id: id } }" custom v-slot="{ navigate }" :data-testid="`open-shipment-${id}`">
-            <AppButton @click="navigate" role="link">Открыть</AppButton>
+            <AppButton @click="navigate" role="link" :e2e="'start-recount-btn'">Открыть</AppButton>
           </router-link>
         </td>
       </tr>

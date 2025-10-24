@@ -37,7 +37,7 @@ onMounted(() => {
     <div v-if="shipment.status === 'new'">
       <br />
       <router-link :to="{ name: 'recount.detail' }" custom v-slot="{ navigate }">
-        <AppButton @click="navigate" role="link">Отправить на пересчёт</AppButton>
+        <AppButton @click="navigate" role="link" :e2e="'start-recount-btn'">Отправить на пересчёт</AppButton>
       </router-link>
     </div>
   </div>
