@@ -3,7 +3,7 @@ import { onMounted, ref } from "vue";
 import { getShipments } from "@/services/shipments.mock";
 import type { Shipment } from "@/types/shipment";
 import ShipmentsTable from "@/components/tables/ShipmentsTable.vue";
-import StateBlock from "@/components/ui/StateBlock.vue";
+import Loading from 'vue-loading-overlay';
 
 const loading = ref(true);
 const shipments = ref<Shipment[]>([]);
@@ -19,10 +19,17 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div v-if="loading">
-    <StateBlock />
-  </div>
-  <div v-else>
+  <Loading
+    :active="loading"
+    :is-full-page="true"
+    color="#fff"
+    loader="dots"
+    :can-cancel="false"
+    :height="80"
+    :width="80"
+    :background-color="'#000'"
+  />
+  <div v-if="!loading">
     <h2>Список поставок</h2>
     <div v-if="shipments.length > 0">
       <ShipmentsTable :shipments="shipments" />
