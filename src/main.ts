@@ -3,8 +3,10 @@ import {pinia} from '@/stores'
 import '@/style.css'
 import App from '@/App.vue'
 import {router} from "@/router";
-import Toast, { PluginOptions } from "vue-toastification";
+import Toast from "vue-toastification";
+import type { PluginOptions } from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import 'vue-loading-overlay/dist/css/index.css'
 
 
 const app = createApp(App)

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { recountStore } from "@/stores/recount";
+import AppButton from "@/components/ui/AppButton.vue";
 defineProps(['bins']);
 
 const storeRecount = recountStore()
 
-const changeQuantity = (bin:string,sku:string,qty:string,plus:boolean) => {
+const changeQuantity = (bin:"good" | "reject" | "unknown",sku:string,qty:number,plus:boolean) => {
   let newQty = Number(qty)
 
   if (plus) {
@@ -15,6 +16,8 @@ const changeQuantity = (bin:string,sku:string,qty:string,plus:boolean) => {
   storeRecount.changeBinQty(bin,sku,newQty);
 }
 
+console.log(storeRecount)
+
 </script>
 <template>
   <div class="container">
@@ -23,15 +26,18 @@ const changeQuantity = (bin:string,sku:string,qty:string,plus:boolean) => {
       :class="{ active: storeRecount.activeBinId === item.id }"
          v-for="item in storeRecount.bins"
          :key="item.id"
-         :data-testid="`${item.id}`"
+         :data-testid="`bin-${item.id}`"
     >
-      <h4>{{item.title}}: <span :data-testid="`${item.id}-total`">{{item.totalQty}}</span></h4>
-      <div v-for="(qty, sku) in item.items" :key="sku">
-        <p>{{sku}}: {{qty}}</p>
-        <button @click="changeQuantity(item.id,sku,qty,false)">-</button>&nbsp;<button @click="changeQuantity(item.id,sku,qty,true)">+</button>
-      </div>
+      <h4>{{item.title}}: <span :data-testid="`bin-${item.id}-total`">{{item.totalQty}}</span></h4>
+      <TransitionGroup name="list" tag="div" class="items-list">
+        <div v-for="(qty, sku) in item.items" :key="sku">
+          <p>{{sku}}: {{qty}}</p>
+          <AppButton @click="changeQuantity(item.id,sku,qty,false)" styleClass="quantity minus">-</AppButton>&nbsp;<AppButton @click="changeQuantity(item.id,sku,qty,true)" styleClass="quantity plus" >+</AppButton>
+
+        </div>
+      </TransitionGroup>
       <hr />
-      <button @click="storeRecount.setActiveBin(item.id)" class="choose">Выбрать</button>
+      <AppButton @click="storeRecount.setActiveBin(item.id)" styleClass="choose">Выбрать</AppButton>
     </div>
   </div>
 </template>
@@ -57,5 +63,14 @@ div{
 
 .item.active{
   border-color:gold
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

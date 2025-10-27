@@ -1,17 +1,19 @@
 import { defineStore } from "pinia";
-import { RecountState } from "@/types/recount";
+import type { BinId } from "@/types/recount";
+import type { RecountState } from "@/types/recount";
+import type {Bins} from "@/types/recount";
 import { getShipments } from "@/services/shipments.mock";
 
-const initialBins = [
-  { id: 'bin-good', title: 'Годный',   items: {}, totalQty: 0 },
-  { id: 'bin-reject', title: 'Брак',     items: {}, totalQty: 0 },
-  { id: 'bin-unknown', title: 'Излишек',  items: {}, totalQty: 0 }
-]
+const initialBins: Bins = {
+  good: { id: 'good', title: 'Good', items: {}, totalQty: 0 },
+  reject: { id: 'reject', title: 'Reject', items: {}, totalQty: 0 },
+  unknown: { id: 'unknown', title: 'Unknown', items: {}, totalQty: 0 },
+}
 
 export const recountStore  = defineStore('recount', {
   state: (): RecountState => ({
     shipmentId: '',
-    bins: initialBins,
+    bins: {...initialBins},
     expected: {},
     scannedTotalBySku: {},
     status: 'idle',
@@ -31,24 +33,23 @@ export const recountStore  = defineStore('recount', {
           },
           {}
         ) || {}
-
-      this.bins = this.bins?.length ? this.bins : initialBins
     },
-    setActiveBin(id: string) {
+    setActiveBin(id: BinId) {
       this.activeBinId = id
     },
-    scanSku(sku, qty, bin) {
+    scanSku(sku : string, qty :number, bin: BinId) {
       if (!this.activeBinId) return;
-      const bin_ = this.bins.find(b => String(b.id) === String(bin));
-      if (!bin_) return;
+      if (!this.bins[bin]) return;
 
-      bin_.items[sku] = qty
-      bin_.totalQty = bin_.totalQty + qty
+      this.bins[bin].items[sku] = qty
+      this.bins[bin].totalQty = this.bins[bin].totalQty + qty
 
+      this.recalculateBinTotal(bin)
       this.changeScannedTotalBySku(sku,qty)
     },
-    changeBinQty(bin: number, sku:string, qty: number) {
-      const items = this.bins.find(b => String(b.id) === String(bin)).items;
+    changeBinQty(bin: BinId, sku:string, qty: number) {
+      if (!this.bins[bin]) return;
+      const items = this.bins[bin].items;
       if (!items) return;
       if(qty === 0){
         delete items[sku]
@@ -56,14 +57,27 @@ export const recountStore  = defineStore('recount', {
         items[sku] = qty
       }
 
+      this.recalculateBinTotal(bin)
       this.changeScannedTotalBySku(sku,qty)
     },
-    changeScannedTotalBySku(sku,qty) {
-      if(sku === 0){
+    changeScannedTotalBySku(sku : string,qty : number) {
+      if(qty === 0){
         delete this.scannedTotalBySku[sku]
       }else{
         this.scannedTotalBySku[sku] = qty
       }
+    },
+    recalculateBinTotal(bin: BinId) {
+      const binData = this.bins[bin]
+      if (!binData) return
+
+      const items = binData.items || {}
+      binData.totalQty = Object.values(items).reduce((sum, q) => sum + q, 0)
+    },
+    resetAfterRecount() {
+      this.status = 'idle';
+      this.$reset();
+      Object.keys(localStorage).forEach(k => { if (k.includes('recount')) localStorage.removeItem(k) });
     }
   },
   getters: {

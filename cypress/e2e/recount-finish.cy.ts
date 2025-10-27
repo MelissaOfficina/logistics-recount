@@ -24,17 +24,17 @@ describe('recount scan', () => {
                   );
 
                   cy.get('[name="sku"]').type("1");
-                  cy.get('[name="qty"]').type("{backspace}1");
+                  cy.get('[name="qty"]').type("{backspace}21");
                   cy.get(".scan").should("not.be.disabled");
                   cy.get(".scan").click();
 
                   cy.get('[name="sku"]').type("5");
-                  cy.get('[name="qty"]').type("{backspace}1");
+                  cy.get('[name="qty"]').type("{backspace}17");
                   cy.get(".scan").should("not.be.disabled");
                   cy.get(".scan").click();
 
                   cy.get('[name="sku"]').type("13");
-                  cy.get('[name="qty"]').type("{backspace}1");
+                  cy.get('[name="qty"]').type("{backspace}10");
                   cy.get(".scan").should("not.be.disabled");
                   cy.get(".scan").click();
 

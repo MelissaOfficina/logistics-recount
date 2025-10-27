@@ -6,10 +6,16 @@ export type ScannedItem = {
   qty: number; // суммарно отсканировано в рамках коробки
 };
 
+export type Bins = {
+  good: BinState
+  reject: BinState
+  unknown: BinState
+}
+
 export type BinState = {
   id: BinId;
   title: string; // "Годный", "Брак", "Излишек"
-  items: Record<string, ScannedItem>; // key: skuId
+  items: Record<string, number>; // key: skuId
   totalQty: number; // агрегат
 };
 
@@ -19,4 +25,5 @@ export type RecountState = {
   expected: Record<string, number>; // from Shipment.items: skuId -> expectedQty
   scannedTotalBySku: Record<string, number>; // агрегат по всем коробкам
   status: 'idle' | 'in_progress' | 'ready_to_finish';
+  activeBinId: BinId | null
 }

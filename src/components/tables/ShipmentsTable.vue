@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {formatDate} from "@/utils/formatDate";
+import AppButton from "@/components/ui/AppButton.vue";
 defineProps(["shipments"]);
 </script>
 
@@ -16,19 +17,18 @@ defineProps(["shipments"]);
     </thead>
     <tbody>
       <tr
-        v-for="shipment in shipments"
-        :key="shipment.id"
-        :data-testid="`shipments-row-${shipment.id}`"
+        v-for="{id,vendor,date,status} in shipments"
+        :key="id"
+        :data-testid="`shipments-row-${id}`"
       >
-        <td>{{ shipment.id }}</td>
-        <td>{{ shipment.vendor }}</td>
-        <td>{{ formatDate(shipment.date) }}</td>
-        <td>{{ shipment.status }}</td>
+        <td>{{ id }}</td>
+        <td>{{ vendor }}</td>
+        <td>{{ formatDate(date) }}</td>
+        <td>{{ status }}</td>
         <td>
-          <router-link
-            :to="{ name: 'shipment.detail', params: { id: shipment.id } }"
-            :data-testid="`open-shipment-${shipment.id}`"
-            >Открыть</router-link>
+          <router-link :to="{ name: 'shipment.detail', params: { id: id } }" custom v-slot="{ navigate }" :data-testid="`open-shipment-${id}`">
+            <AppButton @click="navigate" role="link" :e2e="'start-recount-btn'">Открыть</AppButton>
+          </router-link>
         </td>
       </tr>
     </tbody>

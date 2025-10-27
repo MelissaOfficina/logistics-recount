@@ -1,21 +1,42 @@
 <script setup lang="ts">
-  import { ref } from "vue";
-  import { useRouter } from 'vue-router'
-  import { getShipments } from "@/services/shipments.mock.ts";
-  import type { Shipment } from "@/types/shipment.ts";
-  import ShipmentsTable from "@/components/tables/ShipmentsTable.vue";
+import { onMounted, ref } from "vue";
+import { getShipments } from "@/services/shipments.mock";
+import type { Shipment } from "@/types/shipment";
+import ShipmentsTable from "@/components/tables/ShipmentsTable.vue";
+import Loading from 'vue-loading-overlay';
 
-  const router = useRouter()
-  router.push('/shipments');
+const loading = ref(true);
+const shipments = ref<Shipment[]>([]);
 
-  const shipments = ref<Shipment[]>(getShipments());
+onMounted(async () => {
+  try {
+    shipments.value = await new Promise<Shipment[]>((resolve) =>
+      setTimeout(() => resolve(getShipments()), 500)
+    );
+  } finally {
+    loading.value = false;
+  }
+});
 </script>
 <template>
-  <h2>Список поставок</h2>
-  <div v-if="shipments.length > 0">
-    <ShipmentsTable :shipments="shipments" />
+  <Loading
+    :active="loading"
+    :is-full-page="true"
+    color="#fff"
+    loader="dots"
+    :can-cancel="false"
+    :height="80"
+    :width="80"
+    :background-color="'#000'"
+  />
+  <div v-if="!loading">
+    <h2>Список поставок</h2>
+    <div v-if="shipments.length > 0">
+      <ShipmentsTable :shipments="shipments" />
+    </div>
+    <div v-else>
+      <p>Поставок нет</p>
+    </div>
   </div>
-  <div v-else>
-    <p>Поставок нет</p>
-  </div>
+
 </template>
